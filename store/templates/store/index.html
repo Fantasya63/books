@@ -1,0 +1,58 @@
+{% extends "store/layout.html" %}
+{% load static %}
+
+
+{% block extra-css %}
+    <link rel="stylesheet" href="{% static 'store/index.css' %}">
+{% endblock %}
+
+{% block body%}
+    <section id="hero">
+        <img src="{% static 'store/hero.svg' %}" alt="BOOBS Books superstore. Bookworm's online obsessions: Books Superstore " id="hero-text">
+    </section>
+
+    <section class="all_books">
+        <h2 class="section-title">All Books</h2>
+        <hr>
+        <div class="card-wrapper">
+            {% for book in all_books %}
+            <a href='{% url "store:book" bookID=book.id %}'>
+                <div class="card">
+                    <img src="{{ book.image.url }}" alt="{{ book.title }}">
+                    <h3> {{ book.title }} </h3>
+                    <p class="author"> {{ book.author }} </p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </section>
+
+    <script>
+        const stickyDiv = document.querySelector('nav')
+
+        // Detect if the sticky div is in sticky state (position: fixed) or not (position: relative) from the position: sticky func
+        {
+            let rect = stickyDiv.getBoundingClientRect()
+            const isSticky = window.pageYOffset > 0
+       
+            if (isSticky) {
+                stickyDiv.classList.add('sticky');
+            } else {
+                stickyDiv.classList.remove('sticky');
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+        let rect = stickyDiv.getBoundingClientRect()
+        const isSticky = window.pageYOffset > 0
+       
+            if (isSticky) {
+                stickyDiv.classList.add('sticky');
+            } else {
+                stickyDiv.classList.remove('sticky');
+            }
+            // console.log("height: "  + rect.height + ", offset: " + getOffset(stickyDiv).top + " height: " + window.innerHeight + " top: " + (stickyDiv.getBoundingClientRect().top + 82))
+            // console.log("Height: " + (window.innerHeight - rect.height + window.pageYOffset) + ", Offset: " + (rect.top + window.pageYOffset))
+        });
+    </script>
+{% endblock%}

@@ -1,0 +1,32 @@
+{% extends "store/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+    <section id="hero">
+        <img src="{% static 'store/hero.svg' %}" alt="BOOBS Books superstore. Bookworm's online obsessions: Books Superstore " id="hero-text">
+    
+        <div class="form-card">
+            <p class="form-card-title"> Login </p>
+
+            {% if error %}
+            <h5 class="form-error">
+                {{ error }}
+            </h5>
+            {% endif %}
+            <form action="{% url 'store:login' %}", method="post">
+                {% csrf_token %}
+                
+                {{  form }}
+        
+                <input type="submit" value="Login" style="margin-top: 40px;">
+            </form>
+            <div style="display: flex; flex-direction: row; margin: 0px auto; margin-top: 24px;">
+                <p style="font-family: 'Montserrat', sans-serif; font-size: 14px;">Don’t have an account? <a href="{% url "store:signup" %}" style="color: #F2AE31; font-weight: bold; font-family: 'Montserrat', sans-serif; font-size: 14px;">Register now</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    
+{% endblock %}

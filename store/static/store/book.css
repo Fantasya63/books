@@ -1,0 +1,201 @@
+/* BOOK PAGE */
+
+/* Remove default increment decrement btn on input numbers */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+
+
+.book-showcase {
+    display: flex;
+    flex-direction: row;
+    height: calc(100svh - 114px);
+    align-items: center;
+    padding: calc(((100svh - 114px) - 518px) / 2) 144px;
+    gap: 80px;
+}
+
+.book-showcase > img {
+    width: 518px;
+    height: 518px;
+    object-fit: contain;
+    border-top: #E6E6E6 solid 1px;
+    border: #E6E6E6 solid 1px;
+
+}
+
+.book-showcase-right {
+    display: flex;
+    flex-direction: column;
+    width: 518px;
+    min-height: 100%;
+}
+
+.book-showcase-right > #book-title {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'Sora', sans-serif;
+    text-align: left;
+
+    margin-bottom: 12px;
+}
+
+.book-showcase-right > #book-author{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: regular;
+
+    margin-bottom: 48px;
+}
+
+#book-price {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: regular;
+
+    margin-bottom: 22px;
+}
+
+#book-quantity-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #A9A9A9;
+
+    margin-bottom: 22px;
+}
+
+#book-catergory-label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: #A9A9A9;
+}
+
+.book-info-wrapper {
+    display: flex;
+    flex-direction: row;
+    border-radius: 16px;
+    margin-left: 144px;
+    margin-right: 144px;
+
+    border: #E6E6E6 solid 1px;
+
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: regular;
+}
+
+.book-info-left {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 64px 32px 64px 64px;
+}
+
+.book-info-right {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    padding: 64px 64px 64px 32px;
+}
+
+.book-info-left .book-description {
+    text-align: justify;
+    font-family: 'Sora', sans-serif;
+    font-size: 16px;
+    font-weight: regular;
+
+    color: #043D4A;
+}
+
+.book-info-wrapper .info-label {
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+table, th, td {
+    border: 1px solid #E6E6E6;
+    border-collapse: collapse;
+}
+
+th, td {
+    width: 50%;
+    height: 52px;
+    padding: 16px 26px;
+
+    font-family: 'Sora', sans-serif;
+    font-weight: normal;
+    font-size: 16px;
+}
+
+/* Orders */
+.order-form {
+    display: flex;
+    flex-direction: row;
+    gap: 34px;
+}
+
+.input-quantity {
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    height: 58px;
+    width: 162px;
+
+    border-radius: 29px;
+    border: 1px solid #E6E6E6;
+
+}
+
+
+.quantity-btn, .order-submit{
+    background-color: #ffffff00;;
+    width: 58px;
+    height: 58px;
+    display: inline-block;
+    border: none;
+}
+
+#quantity-input {
+    border: none;
+    text-align: center;
+    font-family: 'Sora', sans-serif;
+    font-size: 24px;
+}
+
+.order-submit {
+    background-color: #024A59;
+    color: white;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+
+    width: 162px;
+    border-radius: 29px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+#inc-quantity-btn {
+    border-radius: 0px 29px 29px 0px;
+}
+
+#dec-quantity-btn {
+    border-radius: 29px 0px 0px 29px;
+}

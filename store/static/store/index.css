@@ -1,0 +1,35 @@
+nav {
+    position: sticky;
+    top: 0px;
+    box-shadow: none;
+    transition: box-shadow 0.3s ease;
+}
+
+nav.sticky {
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+}
+
+.all_books {
+    padding: 32px;
+}
+
+.all_books {
+    padding: 48px 144px;
+}
+
+.section-title {
+    font-family: 'Sora', sans-serif;
+    font-size: 32px;
+    font-weight: 400;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.card-wrapper {
+    margin-top: 24px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    justify-content: center;
+}

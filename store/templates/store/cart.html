@@ -1,0 +1,92 @@
+{% extends "store/layout.html" %}
+{% load static %}
+
+
+{% block extra-css %}
+    <link rel="stylesheet" href="{% static 'store/cart.css' %}">
+{% endblock %}
+
+{% block body%}
+    <section style="min-height: calc(100svh - 114px); padding: 0px 144px; padding-bottom: 64px;">
+        <table class="cart-table">
+            <tr style="border-bottom: 1px solid #f6f6f6;  text-align: left;">
+                <th style="width: 40%; text-align: left;">Product</th>
+                <th>Unit Price</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th>Action</th>
+            </tr>
+            {% for orderID, cart_item in cart.items %}
+            <tr>
+                <td>
+                    <div style="display: flex;">
+                        <img src="{{ cart_item.image }}" alt="{{ cart_item.product_title }}" style="width: 90px; height: 90px;  object-fit: contain;">
+                        <div style="display: flex; flex-direction: column;">
+                            <span style="font-weight: 600; font-family: 'Sora', sans-serif; font-size: 14px; margin-bottom: 4px;">{{ cart_item.product_title }}</span>
+                            <span style="font-weight: 700; font-family: 'Sora', sans-serif; font-size: 12px; color: #024A59;"> {{ cart_item.author }}</span>
+                        </div>
+                    </div> 
+                    
+                </td>
+                <td> Php {{ cart_item.price }}.00 </td>
+                <td> {{ cart_item.quantity }} </td>
+                <td> Php {{ cart_item.total_price }}.00 </td>
+                <td> 
+                    <form action="{% url 'store:cart' %}" method="post">
+                        {% csrf_token %}
+
+                        <input type="hidden" name="removeID" value="{{ orderID }}">
+                        <input type="submit" value="Delete" class="cart-delete-btn">
+                    </form>
+                </td>
+
+            </tr>
+            <tr style="height: 8px;"></tr>
+            {% endfor %}
+            
+        </table>
+
+        <div class="cart-confirm-wrapper" id="stickyDiv">
+            <p style="font-family: 'Montseratt', sans-serif; font-size: 16px;">Total: Php {{ cart_total_price }} </p>
+            <form action="{% url 'store:checkout' %}" method="post">
+                {% csrf_token %}
+
+
+                {% if cart_empty %}
+                    <button type="submit" class="feature-btn" disabled> Check out </button>
+                {% else %}
+                    <button type="submit" class="feature-btn"> Check out </button>
+                {% endif %}
+            </form>
+        </div>
+    </section>
+
+    <script>
+        const stickyDiv = document.getElementById('stickyDiv');
+
+        // Detect if the sticky div is in sticky state (position: fixed) or not (position: relative) from the position: sticky func
+        {
+            let rect = stickyDiv.getBoundingClientRect()
+            const isSticky = (window.innerHeight - rect.height + window.pageYOffset) <= (rect.top + window.pageYOffset)
+       
+            if (isSticky) {
+                stickyDiv.classList.add('sticky');
+            } else {
+                stickyDiv.classList.remove('sticky');
+            }
+        }
+
+        window.addEventListener('scroll', () => {
+        let rect = stickyDiv.getBoundingClientRect()
+        const isSticky = (window.innerHeight - rect.height + window.pageYOffset) <= (rect.top + window.pageYOffset)
+       
+            if (isSticky) {
+                stickyDiv.classList.add('sticky');
+            } else {
+                stickyDiv.classList.remove('sticky');
+            }
+            // console.log("height: "  + rect.height + ", offset: " + getOffset(stickyDiv).top + " height: " + window.innerHeight + " top: " + (stickyDiv.getBoundingClientRect().top + 82))
+            // console.log("Height: " + (window.innerHeight - rect.height + window.pageYOffset) + ", Offset: " + (rect.top + window.pageYOffset))
+        });
+    </script>
+{% endblock%}

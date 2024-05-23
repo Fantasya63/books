@@ -1,0 +1,73 @@
+.nav-title {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.nav-title::after {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    content: '| Shopping cart';
+    margin-left: 12px;
+    color: #024A59;
+}
+
+.cart-table, th, td
+{
+    height: 90px;
+}
+
+.cart-table {
+    width: 100%;
+    height: min-content;
+    
+}
+
+.cart-table th {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    /* border-bottom: 1px solid #e6e6e6; */
+}
+
+.cart-table td {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.cart-delete-btn {
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    color: #024A59;
+    font-size: 16px;
+    font-weight: 600;
+    background-color: white;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.cart-confirm-wrapper {
+    margin-top: 16px;
+    padding: 32px;
+    background-color: white;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 0px;
+
+    box-shadow: none; /* initially no shadow */
+    transition: box-shadow 0.3s ease; /* for smooth transition */
+
+    /* Layout */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-confirm-wrapper.sticky {
+    box-shadow: 0px -5px 20px 0px rgba(0, 0, 0, 0.2);
+}
+
+.feature-btn:disabled {
+    background-color: gray;
+    cursor: default;
+}

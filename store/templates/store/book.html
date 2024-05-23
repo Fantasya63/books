@@ -1,0 +1,105 @@
+{% extends "store/layout.html" %}
+{% load static %}
+
+
+{% block extra-css %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static 'store/book.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'store/book.css' %}">
+{% endblock %}
+
+{% block body %}
+    <div class="book-showcase">
+        <img src="{{ book.image.url }}" alt="{{ book.title }}">
+        <div class="book-showcase-right">
+            <h1 id="book-title"> {{ book.title }} </h1>
+            <p id="book-author"> Author: {{ book.author }} </p>
+            <p id="book-price"> Php {{ formated_price }}.00 </p>
+            <hr style="margin-bottom: 12px;">
+            <p id="book-quantity-label"> Amount </p>
+
+            <form action="{% url 'store:cart' %}" method="post" class="order-form" style="margin-bottom: 74px;">
+                {% csrf_token %}
+
+                <div class="input-quantity">
+                    <button type="button" id="dec-quantity-btn" class="quantity-btn"><span class="material-symbols-rounded"> remove </span></button>
+                    <input type="number" id="quantity-input" min="1" max="99" value="1" name="quantity-input">
+                    <input type="hidden" id="orderId" value="{{ book.id }}", name="orderId">
+                    <button type="button" id="inc-quantity-btn" class="quantity-btn"><span class="material-symbols-rounded"> add </span></button>
+                </div>
+                
+                <button type="submit" class="order-submit"><span class="material-symbols-rounded" style="vertical-align: middle; font-size: 24px;">
+                    shopping_bag
+                    </span>  Add to cart </button>
+            </form>
+            
+
+            <hr style="margin-bottom: 22px;">
+            <p id="book-catergory-label"> Category: <span style="color: black; font-family: 'Montserrat'; font-weight: 700; font-size: 12px;">{{ book.category }}</span> </p>
+        </div>
+    </div>
+    <div class="book-info-wrapper" style="margin-bottom: 80px;">
+        <div class="book-info-left">
+            <h3 class="info-label"> Description </h3>
+            <p class="book-description"> {{ book.description|linebreaksbr }} </p>
+        </div>
+        <div class="book-info-right">
+            <h3 class="info-label"> Additional Information </h3>
+
+            <table>
+                {% if book.isbn %}
+                <tr>
+                    <td>
+                        ISBN
+                    </td>
+                    <td>
+                        {{ book.isbn }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if book.author %}
+                <tr>
+                    <td>
+                        Author
+                    </td>
+                    <td>
+                        {{ book.author }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if book.publication_date %}
+                <tr>
+                    <td>
+                        Publication Date
+                    </td>
+                    <td>
+                        {{ book.publication_date }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if book.genre %}
+                <tr>
+                    <td>
+                        Genre
+                    </td>
+                    <td>
+                        {{ book.genre }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if book.category %}
+                <tr>
+                    <td>
+                        Category
+                    </td>
+                    <td>
+                        {{ book.category }}
+                    </td>
+                </tr>
+                {% endif %}
+            </table>
+            
+        </div>
+    </div>
+{% endblock %}
