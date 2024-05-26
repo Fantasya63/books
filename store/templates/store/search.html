@@ -6,18 +6,16 @@
 
 {% block extra-css %}
     <link rel="stylesheet" href="{% static 'store/index.css' %}">
+    <link rel="stylesheet" href="{% static 'store/search.css' %}">
+
 {% endblock %}
 
 {% block body%}
-    <section id="hero">
-        <img src="{% static 'store/hero.svg' %}" alt="BOOBS Books superstore. Bookworm's online obsessions: Books Superstore " id="hero-text">
-    </section>
-
     <section class="all_books">
-        <h2 class="section-title">All Books</h2>
+        <h2 class="section-title">Search Result</h2>
         <hr>
         <div class="card-wrapper">
-            {% for book in all_books %}
+            {% for book in search_result %}
             <a href='{% url "store:book" bookID=book.id %}' class="card_link" style="background-color: white;">
                 <div class="card">
                     <div>
@@ -35,6 +33,9 @@
                     </div>
                 </div>
             </a>
+            {% empty %}
+            
+            <span> No Search Result </span>
             {% endfor %}
         </div>
     </section>

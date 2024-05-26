@@ -1,0 +1,75 @@
+{% extends "store/layout.html" %}
+{% load static %}
+
+
+{% block extra-css %}
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script> -->
+    <!-- <script src="{% static 'store/book.js' %}"></script> -->
+
+    <link rel="stylesheet" href="{% static 'store/account.css' %}">
+{% endblock %}
+
+
+{% block body %}
+<section id="account_section">
+    <div id="account_sidebar">
+        <div class="account-tile">
+            <div class="profile_bg">
+                {{ account.first_name|make_list|first }}
+            </div>
+            <div class="account-tile-details">
+                <div class="account-tile-name"> {{ account.first_name }} {{ account.last_name }} </div>
+                <div class="account-tile-uid"> UID: {{ accountID }} </div>
+            </div>
+        </div>
+
+        <div class="account_sidebar_nav">
+            <a href="{% url 'store:account' %}">
+                <div class="account_sidebar_nav_item" >
+                    <span class="sidebar_nav_item_label"> My Account </span>
+                    <span class="sidebar_nav_item_icon material-symbols-rounded nav-icons" style="color: #F2AE31;">
+                        account_circle
+                    </span>
+                </div>
+            </a>
+
+            <a href="{% url 'store:purchases' %}">
+                <div class="account_sidebar_nav_item" >
+                    <span class="sidebar_nav_item_label"> My Purchases </span>
+                    <span class="sidebar_nav_item_icon material-symbols-rounded nav-icons" style="color: #F1C22E;">
+                        shopping_bag
+                    </span>
+                </div>
+            </a>
+
+            <a href="{% url 'store:cart' %}">
+                <div class="account_sidebar_nav_item" >
+                    <span class="sidebar_nav_item_label"> My Cart </span>
+                    <span class="sidebar_nav_item_icon material-symbols-rounded nav-icons" style="color: #024A59;">
+                        shopping_cart
+                    </span>
+                </div>
+            </a>
+            
+           
+        </div>
+    </div>
+    <div class="vr"></div>
+    <div id="account-content">
+        <h2> My Profile </h2>
+
+        {% if error %}
+            <h5 class="form-error">
+                {{ error }}
+            </h5>
+        {% endif %}
+
+        <form action="{% url 'store:account' %}" method="post">
+            {% csrf_token %}
+            {{ edit_form }}
+            <input type="submit" value="Save changes">
+        </form>
+    </div>
+    
+</section>
+{% endblock %}

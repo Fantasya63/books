@@ -3,21 +3,22 @@ from django.urls import reverse
 from django.shortcuts import render
 from django import forms
 from django.contrib.auth.hashers import make_password, check_password
+from django.db.models import Q
 
 from store.models import Account, Book, Order, OrderItem
 
 class LoginForm(forms.Form):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={'placeholder': 'Enter your email'}))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder' : 'Enter your password'}))
+    password = forms.CharField(required=True, widget=forms.PasswordInput(attrs={'placeholder' : 'Enter your password'}))
 
 
 class SignupForm(forms.Form):
-    first_name = forms.CharField(max_length=64, required=True)
-    last_name = forms.CharField(max_length=64, required=True)
+    first_name = forms.CharField(max_length=64, required=True, widget=forms.TextInput(attrs={'placeholder': 'Enter your first name'}))
+    last_name = forms.CharField(max_length=64, required=True, widget=forms.TextInput(attrs={'placeholder': 'Enter your last name'}))
     # phone = forms.CharField(max_length=11)
 
-    email = forms.EmailField(required=True)
-    password = forms.CharField(required=True, widget=forms.PasswordInput())
+    email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Enter your email'}))
+    password = forms.CharField(required=True, widget=forms.PasswordInput(attrs={'placeholder': 'Enter your password'}))
 
 
 
@@ -125,9 +126,18 @@ def signup(request):
     
 
 def search(request):
-    request.POST.cleaned_data['']
+    search = request.POST.get('search')
 
-    return HttpResponse("TODO: Implement search feature")
+    search_result = Book.objects.filter(
+        Q(title__icontains=search) | Q(isbn__iexact=search) | Q(author__icontains=search)
+    )
+
+
+
+    return render(request, "store/search.html", {
+        "search_querry" : search,
+        "search_result" : search_result,
+    })
 
 
 # When the user visited the /cart route
@@ -194,7 +204,7 @@ def cart(request):
     request.session['cart'] = cart 
 
 
-    return HttpResponseRedirect(reverse('store:cart'))
+    return HttpResponseRedirect(reverse('store:index'))
     
     
 
@@ -209,13 +219,103 @@ def book (request, bookID):
     })
 
 
-def account(request):
-    if request.method == "POST":
-        return HttpResponseRedirect(reverse("store:index"))
-    
-    # Get
-    return HttpResponse("TODO: Implement Acount")
 
+
+
+class EditAccountForm(forms.Form):
+
+
+    first_name = forms.CharField(max_length=64, widget=forms.TextInput(attrs={'placeholder': 'Enter First Name'}))
+    last_name = forms.CharField(max_length=64, widget=forms.TextInput(attrs={'placeholder': 'Enter Last Name'}))
+    phone = forms.CharField(max_length=11, widget=forms.TextInput(attrs={'placeholder': 'Enter Phone Number'}))
+
+    email = forms.EmailField(disabled=True, required=False)
+
+
+    current_password = forms.CharField(required=False, widget=forms.PasswordInput(attrs={'placeholder' : 'Enter Current password (Leave blank to keep unchanged)'}))
+    new_password = forms.CharField(required=False, widget=forms.PasswordInput(attrs={'placeholder' : 'Enter New Password'}))
+    confirm_password = forms.CharField(required=False, widget=forms.PasswordInput(attrs={'placeholder' : 'Confirm New Password'}))
+
+
+def view_account(request):
+    accountID = request.session.get("account")
+
+    # If the user is not logged in
+    if not accountID:
+        return HttpResponseRedirect('store/login.html')
+
+    my_account = Account.get_account_by_id(accountID)
+
+    initial_values_table = {
+        "first_name" : my_account.first_name,
+        'last_name' : my_account.last_name,
+        'phone' : my_account.phone,
+        'email' : my_account.email,
+    }
+
+    
+    edit_form = EditAccountForm(initial=initial_values_table)
+    
+
+    # Get
+    if request.method == "GET":
+        return render(request, 'store/account.html', {
+            'accountID' : accountID,
+            'account' : my_account,
+            'edit_form' : edit_form,
+        })
+    
+    # POST
+    form = EditAccountForm(request.POST)
+    if not form.is_valid():
+        return render(request, "store/account.html", {
+            'accountID' : accountID,
+            'account' : my_account,
+            'edit_form' : form,    
+        })
+
+
+    # get the cleaned (proper termination of chars, no sql injection, etc) sent data
+    first_name = form.cleaned_data["first_name"]
+    last_name = form.cleaned_data["last_name"]
+    phone = form.cleaned_data["phone"]
+    email = form.cleaned_data["email"]
+    
+    my_account.first_name = first_name
+    my_account.last_name = last_name
+    my_account.phone = phone
+
+
+    current_password = form.cleaned_data['current_password']
+    new_password = form.cleaned_data['new_password']
+    confirm_password = form.cleaned_data['confirm_password']
+
+    if current_password or new_password or confirm_password:
+        if not check_password(current_password, my_account.password):
+            return render(request, 'store/account.html', {
+                'accountID': accountID,
+                'account' : my_account,
+                'edit_form' : form,
+                'error' : "Incorrect Password."
+            })
+        
+        if new_password != confirm_password:
+             return render(request, 'store/account.html', {
+                'accountID': accountID,
+                'account' : my_account,
+                'edit_form' : form,
+                'error' : "Password do not match"
+            })
+        
+        my_account.password = make_password(new_password)
+    
+    my_account.save()
+    return HttpResponseRedirect(reverse('store:account'))
+        
+        
+
+
+    
 
 
 def checkout(request):
@@ -288,7 +388,7 @@ def purchases(request):
 
     account = Account.get_account_by_id(accountID)
     
-    all_orders = account.order.all().order_by('datetime')
+    all_orders = account.order.all().order_by('-datetime')
     
     print(all_orders)
 

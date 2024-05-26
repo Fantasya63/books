@@ -32,7 +32,7 @@
         <form action="{% url 'store:search' %}" method="post" class="book-search-form">
             {% csrf_token %}
 
-            <input type="search" placeholder="Search for books" class="book-search-input">
+            <input type="search" placeholder="Search for books" class="book-search-input", name="search" value="{{ search_querry }}">
             <button type="submit">
                 <span class="material-symbols-rounded">
                     search
@@ -65,7 +65,7 @@
             {% else %}
             <div style="display: flex; flex-direction: row; gap: 16px; margin-left: 32px; vertical-align: middle;">
                 <a href="{% url 'store:login' %}" style="margin-top: auto; margin-bottom: auto;"> Login </a>
-                <a href="{% url 'store:signup' %}" style="margin-top: auto; margin-bottom: auto;"> Signup </a>
+                <a href="{% url 'store:signup' %}" style="margin-top: auto; margin-bottom: auto;"> Sign up </a>
             </div>
             {% endif %}
         </div>

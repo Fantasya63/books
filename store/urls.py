@@ -12,6 +12,6 @@ urlpatterns = [
     path("book/<int:bookID>/", views.book, name="book"),
     path("checkout", views.checkout, name="checkout"),
     path("purchases", views.purchases, name="purchases"),
-    path("account", views.account, name="account")
+    path("account", views.view_account, name="account")
 
 ]

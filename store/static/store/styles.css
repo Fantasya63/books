@@ -53,19 +53,6 @@ h1 {
     font-size: 90px;
 }
 
-.card {
-    display: inline-flex;
-    padding: 8px;
-    /* display: flex; */
-    flex-direction: column;
-    width: 256px;
-    cursor: pointer;
-    background-color: white;
-}
-
-.card:hover {
-    background-color: blue;
-}
 
 nav {
     display: flex;
@@ -132,6 +119,11 @@ nav {
     background-color: #024A59;
     color: white;
     cursor: pointer;
+}
+
+
+.book-search-form button[type="submit"]:hover {
+    background-color: #01404d;
 }
 
 .nav-right-btns{

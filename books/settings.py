@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-59#z!1wriouq6_vsr^+#0p5zq7zno)4*vk@yyo(nm--^ni39xn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
 
 # Application definition
 
@@ -127,3 +126,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# api/settings.py
+WSGI_APPLICATION = 'api.wsgi.app'

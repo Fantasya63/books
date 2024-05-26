@@ -1,0 +1,154 @@
+#account_section {
+    display: flex;
+    flex-direction: row;
+    margin-left: 144px;
+    margin-right: 144px;
+
+
+    min-height: calc(100svh - 114px);
+}
+
+#account_sidebar {
+    width: 222px;
+    height: 100%;
+    margin-right: 26px;
+}
+
+.account_sidebar_nav {
+    margin-top: 95px;
+}
+
+.profile_bg {
+    background-color: #024A59;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+}
+
+.account-tile {
+    display: flex;
+    flex-direction: row;
+    gap: 13px;
+
+    margin-top: 40px;
+}
+
+.account-tile-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.account-tile-name {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.account-tile-uid {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    color: #6D6F78;
+}
+
+.account_sidebar_nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.account_sidebar_nav_item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid #ffffff00;
+    transition: 0.3s ease;
+    padding-bottom: 6px;
+    padding-top: 6px;
+}
+
+.account_sidebar_nav_item:hover {
+    border-bottom: 2px solid #024A59;
+    color: #074A58;
+
+}
+
+.sidebar_nav_item_label {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+}
+
+.sidebar_nav_item_icon {
+    font-size: 28px;
+}
+
+#account-content {
+    padding: 54px 0px 54px 68px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+#account-content > form {
+    margin-left: 16px;
+    margin-top: 44px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    gap: 24px;
+}
+
+#account-content > form input[type='submit'] {
+    cursor: pointer;
+    background-color: #024A59;
+    height: 48px;
+    color: white;
+}
+
+#account-content > form input[type='submit']:hover {
+    background-color: #01404d;
+}
+
+#account-content input {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    height: 34px;
+    background-color: #F6F6F6;
+    color: black;
+    outline: none;
+    border: none;
+
+    border-radius: 4px;
+
+    width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+#account-content input::placeholder {
+    color: #A1A2A6;
+    opacity: 1;
+}
+  
+#account-content input::placeholder::-ms-input-placeholder { /* Edge 12 -18 */
+    color: #A1A2A6;
+    opacity: 1;
+}
+
+.form-error {
+    margin-top: 16px;
+    font-size: 16px;
+
+    color: red;
+}

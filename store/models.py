@@ -9,7 +9,7 @@ class Account(models.Model):
     phone = models.CharField(max_length=16, blank=True, null=True) 
     email = models.EmailField() 
     password = models.CharField(max_length=32) 
-  
+    
     # to save the data 
     def register(self): 
         self.save() 
